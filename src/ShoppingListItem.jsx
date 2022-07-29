@@ -1,7 +1,7 @@
-export default function ShoppingListItem({ name, onAdd }) {
+export default function ShoppingListItem({ name, onClick }) {
   return (
     <li>
-      <button onClick={onAdd}>{name}</button>
+      <button onClick={onClick}>{name}</button>
     </li>
   );
 }

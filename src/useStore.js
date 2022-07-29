@@ -17,6 +17,15 @@ const useStore = create((set) => {
         };
       });
     },
+    removeItem: (currentItemId) => {
+      set((state) => {
+        return {
+          shoppingItems: state.shoppingItems.filter(
+            (shoppingItem) => shoppingItem._id !== currentItemId
+          ),
+        };
+      });
+    },
   };
 });
 
