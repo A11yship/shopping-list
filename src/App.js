@@ -1,5 +1,4 @@
 import "./App.css";
-import { items } from "./example-items";
 import ShoppingListItem from "./ShoppingListItem";
 import StyledList from "./StyledList";
 import useStore from "./useStore";
@@ -14,7 +13,7 @@ function App() {
   const fetchItems = useStore((state) => state.fetchItems);
   const addItem = useStore((state) => state.addItem);
   const removeItem = useStore((state) => state.removeItem);
-  const [availableItems, setAvailableItems] = useState(items);
+  const [availableItems, setAvailableItems] = useState(allItems);
 
   useEffect(() => {
     fetchItems();
