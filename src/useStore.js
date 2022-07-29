@@ -5,6 +5,7 @@ const useStore = create(
   persist(
     (set) => ({
       shoppingItems: [],
+      allItems: [],
       addItem: (newItem) => {
         set((state) => {
           return {
@@ -21,8 +22,22 @@ const useStore = create(
           };
         });
       },
+      fetchItems: async () => {
+        try {
+          const response = await fetch(
+            "https://fetch-me.vercel.app/api/shopping/items"
+          );
+          const data = await response.json();
+          set({ allItems: data.data });
+        } catch (error) {
+          console.error(error.message);
+        }
+      },
     }),
-    { name: "shoppingItems", getStorage: (shoppingItem) => localStorage }
+    {
+      name: "shoppingList",
+      partialize: (state) => ({ shoppingItems: state.shoppingItems }),
+    }
   )
 );
 
