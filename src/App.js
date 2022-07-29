@@ -10,6 +10,13 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
   const selectedItems = useStore((state) => state.shoppingItems);
   const addItem = useStore((state) => state.addItem);
+  const [availableItems, setAvailableItems] = useState(items);
+
+  function handleAdd(item) {
+    addItem(item);
+    setAvailableItems(availableItems.filter((item_) => item_._id !== item._id));
+    setSearchResults([]);
+  }
 
   return (
     <div className="App">
@@ -27,7 +34,7 @@ function App() {
         name="shoppingItem"
         onChange={(event) => {
           setSearchResults(
-            search(event.target.value, items, {
+            search(event.target.value, availableItems, {
               keySelector: (obj) => obj.name.de,
             })
           );
@@ -35,9 +42,17 @@ function App() {
       ></input>
       <StyledList>
         {" "}
-        {searchResults.map((item) => (
-          <ShoppingListItem key={item._id} name={item.name.de} />
-        ))}{" "}
+        {searchResults.length === 0
+          ? "Wir konnten nicht finden, wonach du gesucht hast."
+          : searchResults.map((item) => (
+              <ShoppingListItem
+                key={item._id}
+                name={item.name.de}
+                onAdd={() => {
+                  handleAdd(item);
+                }}
+              />
+            ))}{" "}
       </StyledList>
     </div>
   );
