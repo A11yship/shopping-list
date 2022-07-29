@@ -10,6 +10,7 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
   const selectedItems = useStore((state) => state.shoppingItems);
   const addItem = useStore((state) => state.addItem);
+  const removeItem = useStore((state) => state.removeItem);
   const [availableItems, setAvailableItems] = useState(items);
 
   function handleAdd(item) {
@@ -18,13 +19,22 @@ function App() {
     setSearchResults([]);
   }
 
+  function handleRemove(item) {
+    removeItem(item._id);
+    setAvailableItems([...availableItems, item]);
+  }
+
   return (
     <div className="App">
       <h1> Einkaufsliste </h1>
       <StyledList>
         {" "}
         {selectedItems.map((item) => (
-          <ShoppingListItem key={item._id} name={item.name.de} />
+          <ShoppingListItem
+            key={item._id}
+            name={item.name.de}
+            onClick={() => handleRemove(item)}
+          />
         ))}{" "}
       </StyledList>
       <label htmlFor="shoppingItem"> Was möchtest du einkaufen? </label>
@@ -48,7 +58,7 @@ function App() {
               <ShoppingListItem
                 key={item._id}
                 name={item.name.de}
-                onAdd={() => {
+                onClick={() => {
                   handleAdd(item);
                 }}
               />
