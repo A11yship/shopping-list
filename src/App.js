@@ -1,17 +1,23 @@
 import "./App.css";
-import { items } from "./example-items";
 import ShoppingListItem from "./ShoppingListItem";
 import StyledList from "./StyledList";
 import useStore from "./useStore";
 import { search } from "fast-fuzzy";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
+
   const selectedItems = useStore((state) => state.shoppingItems);
+  const allItems = useStore((state) => state.allItems);
+  const fetchItems = useStore((state) => state.fetchItems);
   const addItem = useStore((state) => state.addItem);
   const removeItem = useStore((state) => state.removeItem);
-  const [availableItems, setAvailableItems] = useState(items);
+  const [availableItems, setAvailableItems] = useState(allItems);
+
+  useEffect(() => {
+    fetchItems();
+  }, [fetchItems]);
 
   function handleAdd(item) {
     addItem(item);
