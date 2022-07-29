@@ -15,9 +15,7 @@ function App() {
   const removeItem = useStore((state) => state.removeItem);
   const [availableItems, setAvailableItems] = useState(allItems);
 
-  useEffect(() => {
-    fetchItems();
-  }, [fetchItems]);
+  useEffect(() => fetchItems(), [fetchItems]);
 
   function handleAdd(item) {
     addItem(item);
