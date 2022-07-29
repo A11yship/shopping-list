@@ -1,8 +1,15 @@
-import create from "zustand/react";
+import create from "zustand";
 
 const useStore = create((set) => {
   return {
-    shoppingItems: [],
+    shoppingItems: [
+      {
+        _id: "c2hvcHBpbmcuaXRlbTox-test",
+        _type: "shopping.item",
+        category: { _type: "ref", _ref: "c2hvcHBpbmcuY2F0ZWdvcnk6MA==" },
+        name: { en: "Pineapple-test", de: "Ananas-test" },
+      },
+    ],
     addItem: (newItem) => {
       set((state) => {
         return {
