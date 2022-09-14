@@ -13,11 +13,15 @@ function App() {
   const fetchItems = useStore((state) => state.fetchItems);
   const addItem = useStore((state) => state.addItem);
   const removeItem = useStore((state) => state.removeItem);
-  const [availableItems, setAvailableItems] = useState(allItems);
+  const [availableItems, setAvailableItems] = useState([]);
 
   useEffect(() => {
     fetchItems();
   }, [fetchItems]);
+
+  useEffect(() => {
+    setAvailableItems(allItems);
+  }, [allItems]);
 
   function handleAdd(item) {
     addItem(item);
